@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29418.71
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTFTDIF.ViewModels", "RTFTDIF.ViewModels\RTFTDIF.ViewModels.csproj", "{AFD812FB-3E8E-4170-B958-C2C9AD42F7CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTFTDIF.Client", "RTFTDIF.Client\RTFTDIF.Client.csproj", "{C8868083-9518-4842-B5D6-241557E2BA37}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AFD812FB-3E8E-4170-B958-C2C9AD42F7CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFD812FB-3E8E-4170-B958-C2C9AD42F7CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFD812FB-3E8E-4170-B958-C2C9AD42F7CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFD812FB-3E8E-4170-B958-C2C9AD42F7CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8868083-9518-4842-B5D6-241557E2BA37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8868083-9518-4842-B5D6-241557E2BA37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8868083-9518-4842-B5D6-241557E2BA37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8868083-9518-4842-B5D6-241557E2BA37}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4B554372-D76A-407D-BFAA-2935CB0596D5}
+	EndGlobalSection
+EndGlobal
