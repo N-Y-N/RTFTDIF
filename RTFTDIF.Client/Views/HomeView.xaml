@@ -16,6 +16,6 @@
             <ColumnDefinition Width="8*"></ColumnDefinition>
             <ColumnDefinition Width="4*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <cc:CategoryItemList></cc:CategoryItemList>
+        <cc:CategoryItemList Margin="5,0,0,0"></cc:CategoryItemList>
     </Grid>
 </UserControl>
