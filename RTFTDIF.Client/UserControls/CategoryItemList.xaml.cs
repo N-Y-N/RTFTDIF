@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace RTFTDIF.Client.UserControls
 {
     /// <summary>
-    /// Interaction logic for CategoryControl.xaml
+    /// Interaction logic for CategoryItemList.xaml
     /// </summary>
-    public partial class CategoryControl : UserControl
+    public partial class CategoryItemList : UserControl
     {
-        public CategoryControl()
+        public CategoryItemList()
         {
             InitializeComponent();
         }

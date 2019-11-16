@@ -81,11 +81,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="UserControls\CategoryControl.xaml.cs">
-      <DependentUpon>CategoryControl.xaml</DependentUpon>
+    <Compile Include="UserControls\CategoryItem.xaml.cs">
+      <DependentUpon>CategoryItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\CategoryListControl.xaml.cs">
-      <DependentUpon>CategoryListControl.xaml</DependentUpon>
+    <Compile Include="UserControls\CategoryItemList.xaml.cs">
+      <DependentUpon>CategoryItemList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
@@ -102,11 +102,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\CategoryControl.xaml">
+    <Page Include="UserControls\CategoryItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\CategoryListControl.xaml">
+    <Page Include="UserControls\CategoryItemList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
