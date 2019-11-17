@@ -1,11 +1,7 @@
-namespace RTFTDIF.ViewModels {
+namespace RTFTDIF.Client {
     using System;
     using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Reflection;
     using Caliburn.Micro;
-    using RTFTDIF.ViewModels;
 
     public class AppBootstrapper : BootstrapperBase {
         SimpleContainer container;
@@ -20,14 +16,6 @@ namespace RTFTDIF.ViewModels {
             container.Singleton<IWindowManager, WindowManager>();
             container.Singleton<IEventAggregator, EventAggregator>();
             container.PerRequest<IShell, ShellViewModel>();
-
-            var config = new TypeMappingConfiguration
-            {
-                DefaultSubNamespaceForViews = "RTFTDIF.Client.Views",
-                DefaultSubNamespaceForViewModels = "RTFTDIF.ViewModels"
-            };
-            ViewLocator.ConfigureTypeMappings(config);
-            ViewModelLocator.ConfigureTypeMappings(config);
         }
 
         protected override object GetInstance(Type service, string key) {
@@ -44,22 +32,6 @@ namespace RTFTDIF.ViewModels {
 
         protected override void OnStartup(object sender, System.Windows.StartupEventArgs e) {
             DisplayRootViewFor<IShell>();
-        }
-
-        protected override IEnumerable<Assembly> SelectAssemblies()
-        {
-            var assemblies = new List<Assembly>();
-            assemblies.AddRange(base.SelectAssemblies());
-            //Load new ViewModels here
-            string[] fileEntries = Directory.GetFiles(Directory.GetCurrentDirectory());
-
-            assemblies.AddRange(from fileName in fileEntries
-                                where fileName.Contains("RTFTDIF.ViewModels.dll")
-                                select Assembly.LoadFile(fileName));
-            //assemblies.AddRange(from fileName in fileEntries
-            //                    where fileName.Contains("RTFTDIF.Client.dll")
-            //                    select Assembly.LoadFile(fileName));
-            return assemblies;
         }
     }
 }

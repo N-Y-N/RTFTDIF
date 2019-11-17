@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("RTFTDIF.ViewModels")]
+[assembly: AssemblyTitle("RTFTDIF.Service")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("RTFTDIF.ViewModels")]
+[assembly: AssemblyProduct("RTFTDIF.Service")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("af0b639b-af2d-47ee-a773-c5cdd3e3ca4d")]
+[assembly: Guid("d5e482e3-6471-48d6-b43e-1e55916eea64")]
 
 // Version information for an assembly consists of the following four values:
 //

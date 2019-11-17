@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace RTFTDIF.Client.UserControls
+namespace RTFTDIF.Controls
 {
     /// <summary>
-    /// Interaction logic for CategoryItemList.xaml
+    /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class CategoryItemList : UserControl
+    public partial class UserControl1 : UserControl
     {
-        public CategoryItemList()
+        public UserControl1()
         {
             InitializeComponent();
         }

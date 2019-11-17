@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.29418.71
+VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTFTDIF.ViewModels", "RTFTDIF.ViewModels\RTFTDIF.ViewModels.csproj", "{AFD812FB-3E8E-4170-B958-C2C9AD42F7CA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTFTDIF.Client", "RTFTDIF.Client\RTFTDIF.Client.csproj", "{0D749795-515F-461D-8BD9-F346EDEA077D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTFTDIF.Client", "RTFTDIF.Client\RTFTDIF.Client.csproj", "{C8868083-9518-4842-B5D6-241557E2BA37}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTFTDIF.ViewModels", "RTFTDIF.ViewModels\RTFTDIF.ViewModels.csproj", "{AF0B639B-AF2D-47EE-A773-C5CDD3E3CA4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTFTDIF.Controls", "RTFTDIF.Controls\RTFTDIF.Controls.csproj", "{5901CC99-D2FB-4830-8034-B94EE31CBECF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTFTDIF.Service", "RTFTDIF.Service\RTFTDIF.Service.csproj", "{D5E482E3-6471-48D6-B43E-1E55916EEA64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,19 +17,27 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AFD812FB-3E8E-4170-B958-C2C9AD42F7CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AFD812FB-3E8E-4170-B958-C2C9AD42F7CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AFD812FB-3E8E-4170-B958-C2C9AD42F7CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AFD812FB-3E8E-4170-B958-C2C9AD42F7CA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C8868083-9518-4842-B5D6-241557E2BA37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C8868083-9518-4842-B5D6-241557E2BA37}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C8868083-9518-4842-B5D6-241557E2BA37}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C8868083-9518-4842-B5D6-241557E2BA37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D749795-515F-461D-8BD9-F346EDEA077D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D749795-515F-461D-8BD9-F346EDEA077D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D749795-515F-461D-8BD9-F346EDEA077D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D749795-515F-461D-8BD9-F346EDEA077D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF0B639B-AF2D-47EE-A773-C5CDD3E3CA4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF0B639B-AF2D-47EE-A773-C5CDD3E3CA4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF0B639B-AF2D-47EE-A773-C5CDD3E3CA4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF0B639B-AF2D-47EE-A773-C5CDD3E3CA4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5901CC99-D2FB-4830-8034-B94EE31CBECF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5901CC99-D2FB-4830-8034-B94EE31CBECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5901CC99-D2FB-4830-8034-B94EE31CBECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5901CC99-D2FB-4830-8034-B94EE31CBECF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5E482E3-6471-48D6-B43E-1E55916EEA64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5E482E3-6471-48D6-B43E-1E55916EEA64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5E482E3-6471-48D6-B43E-1E55916EEA64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5E482E3-6471-48D6-B43E-1E55916EEA64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {4B554372-D76A-407D-BFAA-2935CB0596D5}
+		SolutionGuid = {8DBDDEBB-2CA4-4EA4-9B9D-263BD8FC08E6}
 	EndGlobalSection
 EndGlobal
