@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29503.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTFTDIF.ViewModels", "RTFTDIF.ViewModels\RTFTDIF.ViewModels.csproj", "{AF0B639B-AF2D-47EE-A773-C5CDD3E3CA4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTFTDIF.Controls", "RTFTDIF.Controls\RTFTDIF.Controls.csproj", "{5901CC99-D2FB-4830-8034-B94EE31CBECF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTFTDIF.Service", "RTFTDIF.Service\RTFTDIF.Service.csproj", "{D5E482E3-6471-48D6-B43E-1E55916EEA64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTFTDIF.Client.RichUI", "RTFTDIF.Client.RichUI\RTFTDIF.Client.RichUI.csproj", "{F770F91D-4177-4B78-9AE1-E42ACA61BD78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTFTDIF.Client.Metro", "RTFTDIF.Client.Metro\RTFTDIF.Client.Metro.csproj", "{0D749795-515F-461D-8BD9-F346EDEA077D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AF0B639B-AF2D-47EE-A773-C5CDD3E3CA4D} = {AF0B639B-AF2D-47EE-A773-C5CDD3E3CA4D}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTFTDIF.Client.Commmons", "RTFTDIF.Client.Commmons\RTFTDIF.Client.Commmons.csproj", "{B5C1AFF2-4FDA-4825-B54C-2DC6C5A2F882}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AF0B639B-AF2D-47EE-A773-C5CDD3E3CA4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF0B639B-AF2D-47EE-A773-C5CDD3E3CA4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF0B639B-AF2D-47EE-A773-C5CDD3E3CA4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF0B639B-AF2D-47EE-A773-C5CDD3E3CA4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5901CC99-D2FB-4830-8034-B94EE31CBECF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5901CC99-D2FB-4830-8034-B94EE31CBECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5901CC99-D2FB-4830-8034-B94EE31CBECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5901CC99-D2FB-4830-8034-B94EE31CBECF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5E482E3-6471-48D6-B43E-1E55916EEA64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5E482E3-6471-48D6-B43E-1E55916EEA64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5E482E3-6471-48D6-B43E-1E55916EEA64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5E482E3-6471-48D6-B43E-1E55916EEA64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F770F91D-4177-4B78-9AE1-E42ACA61BD78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F770F91D-4177-4B78-9AE1-E42ACA61BD78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F770F91D-4177-4B78-9AE1-E42ACA61BD78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F770F91D-4177-4B78-9AE1-E42ACA61BD78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D749795-515F-461D-8BD9-F346EDEA077D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D749795-515F-461D-8BD9-F346EDEA077D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D749795-515F-461D-8BD9-F346EDEA077D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D749795-515F-461D-8BD9-F346EDEA077D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5C1AFF2-4FDA-4825-B54C-2DC6C5A2F882}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5C1AFF2-4FDA-4825-B54C-2DC6C5A2F882}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5C1AFF2-4FDA-4825-B54C-2DC6C5A2F882}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5C1AFF2-4FDA-4825-B54C-2DC6C5A2F882}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8DBDDEBB-2CA4-4EA4-9B9D-263BD8FC08E6}
+	EndGlobalSection
+EndGlobal
