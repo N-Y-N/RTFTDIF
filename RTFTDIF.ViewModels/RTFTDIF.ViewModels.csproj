@@ -45,7 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoryItemListViewModel.cs" />
+    <Compile Include="CategoryItemViewModel.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="DesignVMs\DCategoryItemControlViewModel.cs" />
+    <Compile Include="DesignVMs\DCetegoryItemListControlViewModel.cs" />
     <Compile Include="IShell.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShellViewModel.cs" />

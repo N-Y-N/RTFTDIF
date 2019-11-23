@@ -1,5 +1,4 @@
-﻿using MahApps.Metro.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace RTFTDIF.Client.Metro
+namespace RTFTDIF.Client.Metro.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for CategoryItemControl.xaml
     /// </summary>
-    public partial class MainWindow : MetroWindow
+    public partial class CategoryItemControlView : UserControl
     {
-        public MainWindow()
+        public CategoryItemControlView()
         {
             InitializeComponent();
         }

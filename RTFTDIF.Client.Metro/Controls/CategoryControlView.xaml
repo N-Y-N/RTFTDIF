@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="RTFTDIF.Client.Metro.Views.CategoryControlView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RTFTDIF.Client.Metro"
+             xmlns:views="clr-namespace:RTFTDIF.Client.Metro.Views"
+             xmlns:vm="clr-namespace:RTFTDIF.ViewModels;assembly=RTFTDIF.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="400">
+    <Grid Margin="0">
+       <Grid.RowDefinitions>
+           <RowDefinition Height="Auto"></RowDefinition>
+           <RowDefinition Height="*"></RowDefinition>
+       </Grid.RowDefinitions>
+        <Grid Background="{StaticResource AccentColorBrush3}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Content="Sort by : " Grid.Column="0" Style="{StaticResource BaseStyleFont}" Foreground="{StaticResource AccentColorBrush}" FontSize="30"></Label>
+            <Button Grid.Column="1" Padding="10" FontSize="25" Style="{DynamicResource AccentedSquareButtonStyle}" FontFamily="{StaticResource JosefinSansLight}" >
+                <StackPanel Orientation="Horizontal">
+                    <Label>Size</Label>
+                    <Label FontFamily="{StaticResource FontAwesome}">&#xf062;</Label>
+                </StackPanel>
+            </Button>
+            <Button Grid.Column="2" Padding="10" FontSize="25" Style="{DynamicResource AccentedSquareButtonStyle}" FontFamily="{StaticResource JosefinSansLight}">
+                <StackPanel Orientation="Horizontal">
+                    <Label>Files</Label>
+                    <Label FontFamily="{StaticResource FontAwesome}">&#xf063;</Label>
+                </StackPanel>
+            </Button>
+            <Button Grid.Column="4" Padding="10" FontSize="30" Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="{StaticResource FontAwesome}" Content="&#xf067;" Width="50" Height="50" Foreground="{StaticResource AccentColorBrush}"></Button>
+        </Grid>
+        <views:CategoryItemListControlView Grid.Row="1" DataContext="{x:Static vm:DCategoryItemListControlViewModel.Instance}"/>
+    </Grid>
+</UserControl>
