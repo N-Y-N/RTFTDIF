@@ -3,7 +3,6 @@
                     xmlns:local="clr-namespace:RTFTDIF.Client.Metro">
     <ResourceDictionary.MergedDictionaries>
 
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
         <ResourceDictionary>
             <Style x:Key="OnMouseBgChange">
                 <Style.Triggers>

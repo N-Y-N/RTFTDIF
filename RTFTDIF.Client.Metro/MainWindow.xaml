@@ -7,10 +7,16 @@
         xmlns:vm="clr-namespace:RTFTDIF.ViewModels;assembly=RTFTDIF.ViewModels"
         xmlns:local="clr-namespace:RTFTDIF.Client.Metro.Views"
         mc:Ignorable="d"
-        Title="RTFTDIF-v0.1" Height="450" Width="1000" WindowState="Maximized" Topmost="True" WindowStartupLocation="CenterScreen"
+        Title="RTFTDIF-v0.1" Height="450" MinWidth="720" Width="1000" WindowState="Maximized" Topmost="True" WindowStartupLocation="CenterScreen"
         >
     <Grid>
-        <local:LeftSection Width="435" HorizontalAlignment="Left"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="3.5*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <local:LeftSection MinWidth="435"  HorizontalAlignment="Left"/>
+        <local:RightDetailSection Grid.Column="1"></local:RightDetailSection>
         <!--<local:CategoryItemListControlView DataContext="{x:Static vm:DCategoryItemListControlViewModel.Instance}" MaxWidth="400" HorizontalAlignment="Left"/>-->
 
     </Grid>

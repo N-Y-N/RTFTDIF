@@ -22,19 +22,9 @@
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label Content="Sort by : " Grid.Column="0" Style="{StaticResource BaseStyleFont}" Foreground="{StaticResource AccentColorBrush}" FontSize="30"></Label>
-            <Button Grid.Column="1" Padding="10" FontSize="25" Style="{DynamicResource AccentedSquareButtonStyle}" FontFamily="{StaticResource JosefinSansLight}" >
-                <StackPanel Orientation="Horizontal">
-                    <Label>Size</Label>
-                    <Label FontFamily="{StaticResource FontAwesome}">&#xf062;</Label>
-                </StackPanel>
-            </Button>
-            <Button Grid.Column="2" Padding="10" FontSize="25" Style="{DynamicResource AccentedSquareButtonStyle}" FontFamily="{StaticResource JosefinSansLight}">
-                <StackPanel Orientation="Horizontal">
-                    <Label>Files</Label>
-                    <Label FontFamily="{StaticResource FontAwesome}">&#xf063;</Label>
-                </StackPanel>
-            </Button>
-            <Button Grid.Column="4" Padding="10" FontSize="30" Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="{StaticResource FontAwesome}" Content="&#xf067;" Width="50" Height="50" Foreground="{StaticResource AccentColorBrush}"></Button>
+            <views:ButtonWithSortIndicator Grid.Column="1" Text="Size" Opacity="0.25"></views:ButtonWithSortIndicator>
+            <views:ButtonWithSortIndicator Grid.Column="2" Text="Files" Opacity="0.25"></views:ButtonWithSortIndicator>
+            <Button  Grid.Column="4" Padding="10" FontSize="30" Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="{StaticResource FontAwesome}" Content="&#xf067;" Width="50" Height="50" ></Button>
         </Grid>
         <views:CategoryItemListControlView Grid.Row="1" DataContext="{x:Static vm:DCategoryItemListControlViewModel.Instance}"/>
     </Grid>

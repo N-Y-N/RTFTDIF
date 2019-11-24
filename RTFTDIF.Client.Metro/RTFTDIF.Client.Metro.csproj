@@ -65,6 +65,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\ButtonWithSortIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\CategoryControlView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -81,6 +85,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\RightDetailSection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -88,6 +96,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\ButtonWithSortIndicator.xaml.cs">
+      <DependentUpon>ButtonWithSortIndicator.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\CategoryControlView.xaml.cs">
       <DependentUpon>CategoryControlView.xaml</DependentUpon>
@@ -100,6 +111,9 @@
     </Compile>
     <Compile Include="Controls\LeftSection.xaml.cs">
       <DependentUpon>LeftSection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RightDetailSection.xaml.cs">
+      <DependentUpon>RightDetailSection.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -116,6 +130,10 @@
     <Page Include="Resources\Styles\Fonts.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles\ScrollBarMacOS.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Styles\Styles.xaml">
       <SubType>Designer</SubType>
