@@ -29,7 +29,7 @@ namespace RTFTDIF.Core
                     Size = $"{rnd.Next(50, 5000)} MB",
                 };
                 var itms = new List<Item>();
-                for (int j = 1; j <= 1000; j++)
+                for (int j = 1; j <= 10000; j++)
                 {
                     itms.Add(new Item()
                     {

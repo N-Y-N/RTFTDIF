@@ -10,13 +10,16 @@
              d:DesignHeight="450" d:DesignWidth="800">
    
         <ScrollViewer Padding="0,0,0,0" Margin="0,0,-5,0" Height="Auto">
-            <ItemsControl VirtualizingPanel.IsVirtualizing="True"  ItemsSource="{Binding Categories}" Margin="0" Padding="0">
+            <ItemsControl  VirtualizingPanel.IsVirtualizing="True"  ItemsSource="{Binding Categories}" Margin="0" Padding="0">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:CategoryItemControl Id="{Binding Id}" Click="CategoryItemControl_Click" ></local:CategoryItemControl>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
+    
         </ScrollViewer>
+
+    
 
 </UserControl>

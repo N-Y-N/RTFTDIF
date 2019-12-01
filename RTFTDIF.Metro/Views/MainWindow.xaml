@@ -5,17 +5,19 @@
         xmlns:prism="http://prismlibrary.com/"
                  xmlns:controls="clr-namespace:RTFTDIF.Metro.Controls"
                  prism:ViewModelLocator.AutoWireViewModel="False"
-        Title="{Binding Title}" Height="350" Width="525">
+        Title="{Binding Title}" Height="350" Width="525"
+                 WindowState="Maximized">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
             <ColumnDefinition Width="3.5*"></ColumnDefinition>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         
         <ContentControl Grid.Column="0" x:Name="LeftPan" 
                         prism:RegionManager.RegionName="LeftPanRegion"></ContentControl>
-        <ContentControl Grid.Column="1" x:Name="RightPan" 
+        <ContentControl Grid.Column="2" x:Name="RightPan" 
                         prism:RegionManager.RegionName="RightPanRegion"></ContentControl>
 
         <!--<controls:CategoryItemListControl Grid.Column="1" ></controls:CategoryItemListControl>-->

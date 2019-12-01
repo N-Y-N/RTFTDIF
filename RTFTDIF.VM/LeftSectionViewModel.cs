@@ -65,7 +65,7 @@ namespace RTFTDIF.VM
         {
             Sort sort = EnumParser.Parse<Sort>(typeSort);
             //var categoriesBackup = Categories; TODO : Remove if not needed
-            Categories.OrderBy(x => sort == Sort.File ? x.FilesCount.ToString() : x.Size);
+            Categories = new ObservableCollection<CategoryItemControlViewModel> (Categories.OrderBy(x => sort == Sort.File ? x.FilesCount.ToString() : x.Size).ToList());
         }
 
         bool CanExecuteSortCommand(String typeSort)

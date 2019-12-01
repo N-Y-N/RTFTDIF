@@ -59,7 +59,43 @@
             <Label Content="Path" Grid.Row="0" Grid.Column="3" FontSize="20" />
             <Label Content="Type" Grid.Row="0" Grid.Column="4" FontSize="20" />
             <Label Content="Size" Grid.Row="0" Grid.Column="5" FontSize="20" />
-            <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" Padding="0,0,0,0" Margin="0,0,-5,0" Height="Auto">
+            <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" ItemsSource="{Binding Items}" ScrollViewer.CanContentScroll="True">
+                <ListView.View>
+
+                    <GridView AllowsColumnReorder="true"
+              ColumnHeaderToolTip="Category Items" >
+
+                        <GridViewColumn  
+                      Header="Select" Width="50">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Selected, Mode=2}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn DisplayMemberBinding=
+                          "{Binding Path=SNo}" 
+                      Header="Text1" Width="100" />
+
+                        <GridViewColumn DisplayMemberBinding=
+                          "{Binding Path=ItemName}" 
+                      Width="100">
+                            <GridViewColumnHeader>ItemPath
+                            </GridViewColumnHeader>
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding=
+                          "{Binding Path=Format}" 
+                      Header="Text3" Width="100"/>
+
+                        <GridViewColumn DisplayMemberBinding=
+                          "{Binding Path=Size}" 
+                      Header="Text4" Width="100"/>
+                    </GridView>
+
+                </ListView.View>
+            </ListView>
+            <!--<ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" IsDeferredScrollingEnabled="True" Padding="0,0,0,0" Margin="0,0,-5,0" Height="Auto">
                 <ItemsControl VirtualizingPanel.IsVirtualizing="True"  ItemsSource="{Binding Items}" Margin="0" Padding="0">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -67,7 +103,7 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-            </ScrollViewer>
+            </ScrollViewer>-->
         </Grid>
             <!--<ScrollViewer x:Name="GridScroller" Grid.Row="1" PreviewMouseWheel="GridScroller_PreviewMouseWheel">
             <DataGrid VerticalScrollBarVisibility="Visible" RowHeight="50" EnableColumnVirtualization="True" EnableRowVirtualization="False" VirtualizingPanel.VirtualizationMode="Recycling"  VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.IsVirtualizingWhenGrouping="True"  ItemsSource="{Binding Items}" AutoGenerateColumns="False">
