@@ -1,0 +1,26 @@
+﻿<mam:MetroWindow x:Class="RTFTDIF.Metro.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mam="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:prism="http://prismlibrary.com/"
+                 xmlns:controls="clr-namespace:RTFTDIF.Metro.Controls"
+                 prism:ViewModelLocator.AutoWireViewModel="False"
+        Title="{Binding Title}" Height="350" Width="525">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="3.5*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <ContentControl Grid.Column="0" x:Name="LeftPan" 
+                        prism:RegionManager.RegionName="LeftPanRegion"></ContentControl>
+        <ContentControl Grid.Column="1" x:Name="RightPan" 
+                        prism:RegionManager.RegionName="RightPanRegion"></ContentControl>
+
+        <!--<controls:CategoryItemListControl Grid.Column="1" ></controls:CategoryItemListControl>-->
+       
+    </Grid>
+</mam:MetroWindow>
+
+    
