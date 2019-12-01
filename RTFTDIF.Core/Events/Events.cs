@@ -9,6 +9,19 @@ using System.Threading.Tasks;
 
 namespace RTFTDIF.Core.Events
 {
+    public class DeleteItemsEventArg {
+        public string CategoryId { get; set; }
+        public List<string> ItemIds { get; set; }
+    }
+
+    public class DeleteItemsEvent : PubSubEvent<DeleteItemsEventArg>
+    { 
+    }
+
+    public class FilterItemsEvent : PubSubEvent<String> 
+    {
+    }
+
     public class CategorySelectedEvent : PubSubEvent<string>
     {
     }

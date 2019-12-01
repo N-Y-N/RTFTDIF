@@ -23,8 +23,10 @@ namespace RTFTDIF.Metro.Controls
     /// </summary>
     public partial class RightDetailSection : UserControl
     {
-        public RightDetailSection()
+        IEventAggregator _eventAggregator;
+        public RightDetailSection(IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
             InitializeComponent();
         }
 
@@ -33,6 +35,15 @@ namespace RTFTDIF.Metro.Controls
             ScrollViewer scv = (ScrollViewer)sender;
             scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
             e.Handled = true;
-        } 
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null) {
+                _eventAggregator.GetEvent<FilterItemsEvent>().Publish(textBox.Text);
+            }
+            
+        }
     }
 }
