@@ -1,10 +1,14 @@
 ﻿using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using RTFTDIF.Common;
 using RTFTDIF.Core;
+using RTFTDIF.Core.Events;
+using RTFTDIF.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,18 +18,22 @@ namespace RTFTDIF.VM
     public class LeftSectionViewModel : BindableBase
     {
         private Service _service;
-
+        private IEventAggregator _eventAggregator;
         #region Constructor
-        public LeftSectionViewModel(Service service)
+        public LeftSectionViewModel(Service service, IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
             _service = service;
+            _eventAggregator.GetEvent<DraggedFilesEvent>().Subscribe(OnDraggedFiles);
+
             var c = _service.GetAllCategories();
             var cc = c.Select(x => new CategoryItemControlViewModel()
             {
                 Id = x.Id,
                 CategoryName = x.CategoryName,
                 FilesCount = x.FilesCount,
-                Size = x.Size
+                Size = x.Size,
+                CategoryId = x.Id
             }).ToList();
             Total = new CategoryItemControlViewModel()
             {
@@ -34,6 +42,33 @@ namespace RTFTDIF.VM
             };
             Categories = new ObservableCollection<CategoryItemControlViewModel>(cc);
         }
+
+        private void OnDraggedFiles(DraggedFilesEventArgs draggedFilesEventArgs)
+        {
+            var items = new List<Item>();
+            Random rnd = new Random();
+            foreach (string file in draggedFilesEventArgs.Files)
+            {
+                FileInfo fileInfo = new FileInfo(file);
+                if (fileInfo.Attributes != FileAttributes.Directory && fileInfo.Exists)
+                {
+                    items.Add(
+                        new Item()
+                        {
+                            CategoryId = draggedFilesEventArgs.CategoryId,
+                            Format = fileInfo.Extension,
+                            Id = "D_I" + rnd.Next(1, 1000),
+                            Name = fileInfo.Name,
+                            Path = fileInfo.DirectoryName,
+                            Size = fileInfo.Length / 1024 / 1024 + "MB",
+                            Type = fileInfo.Attributes.HasFlag(FileAttributes.Directory) ? ItemType.Folder : ItemType.File
+                        }
+                        ); ; ;
+                }
+            }
+            _service.AddItems(items);
+        }
+
         #endregion
 
         #region Properties

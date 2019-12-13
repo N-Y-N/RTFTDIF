@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Prism.Events;
+using Prism.Regions;
+using RTFTDIF.Core.Events;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -49,7 +52,6 @@ namespace RTFTDIF.Metro.Controls
 
         private void UserControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-
             if(Click != null)
             {
                 Click(Id);
@@ -57,6 +59,20 @@ namespace RTFTDIF.Metro.Controls
         }
 
         #endregion
+
+
+
+        public string CatId
+        {
+            get { return (string)GetValue(CatIdProperty); }
+            set { SetValue(CatIdProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CatId.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CatIdProperty =
+            DependencyProperty.Register("CatId", typeof(string), typeof(CategoryItemControl), new PropertyMetadata(""));
+
+
         //public static readonly RoutedEvent CategorySelectedEvent = EventManager.RegisterRoutedEvent(nameof(CategorySelectedEventHandler),
         //    RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(CategoryItemControl));
 

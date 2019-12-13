@@ -20,19 +20,6 @@ namespace RTFTDIF.VM
         public MainWindowViewModel()
         {
             Title = "RTFTDIF-v0.1";
-            var c = _service.GetAllCategories();
-            var cc = c.Select(x => new CategoryItemControlViewModel()
-            {
-                CategoryName = x.CategoryName,
-                FilesCount = x.FilesCount,
-                Size = x.Size
-            }).ToList();
-            Total = new CategoryItemControlViewModel()
-            {
-                FilesCount = 1000,
-                Size = "56 GB"
-            };
-            Categories = new ObservableCollection<CategoryItemControlViewModel>(cc);
         }
         private ObservableCollection<CategoryItemControlViewModel> categories;
 

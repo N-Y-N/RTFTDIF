@@ -45,5 +45,8 @@ namespace RTFTDIF.Metro.Controls
             }
             
         }
+
+        private void Rectangle_Drop(object sender, DragEventArgs e) => e.Data.GetData(DataFormats.FileDrop);
+
     }
 }

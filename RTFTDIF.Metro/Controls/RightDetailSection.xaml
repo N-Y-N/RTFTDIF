@@ -69,7 +69,7 @@
                       Header="Select" Width="50">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <CheckBox IsChecked="{Binding Selected, Mode=2}"/>
+                                    <CheckBox Height="40" IsChecked="{Binding Selected, Mode=2}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -77,10 +77,12 @@
                         <GridViewColumn DisplayMemberBinding=
                           "{Binding Path=SNo}" 
                       Header="Text1" Width="100" />
-
                         <GridViewColumn DisplayMemberBinding=
                           "{Binding Path=ItemName}" 
-                      Width="100">
+                      Header="Text3" Width="300"/>
+                        <GridViewColumn DisplayMemberBinding=
+                          "{Binding Path=ItemPath}" 
+                      Width="400">
                             <GridViewColumnHeader>ItemPath
                             </GridViewColumnHeader>
                         </GridViewColumn>
@@ -104,6 +106,7 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>-->
+            <Rectangle Grid.Row="1" Grid.Column="6" Fill="{StaticResource AccentColorBrush4}" Drop="Rectangle_Drop" AllowDrop="True"/>
         </Grid>
             <!--<ScrollViewer x:Name="GridScroller" Grid.Row="1" PreviewMouseWheel="GridScroller_PreviewMouseWheel">
             <DataGrid VerticalScrollBarVisibility="Visible" RowHeight="50" EnableColumnVirtualization="True" EnableRowVirtualization="False" VirtualizingPanel.VirtualizationMode="Recycling"  VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.IsVirtualizingWhenGrouping="True"  ItemsSource="{Binding Items}" AutoGenerateColumns="False">

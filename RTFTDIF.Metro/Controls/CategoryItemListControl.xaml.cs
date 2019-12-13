@@ -27,7 +27,7 @@ namespace RTFTDIF.Metro.Controls
         public CategoryItemListControl(IRegionManager regionManager, IEventAggregator eventAggregator)
         {
             this._eventAggregator = eventAggregator;
-            //regionManager.RegisterViewWithRegion("ListRegion", typeof(CategoryItemControl));
+            regionManager.RegisterViewWithRegion("CategoryListRegion", typeof(CategoryItemControl));
             InitializeComponent();
         }
 

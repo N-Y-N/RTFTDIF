@@ -15,5 +15,6 @@ namespace RTFTDIF.Core.Models
         public String Size { get; set; }
         public String Format { get; set; }
         public ItemType Type { get; set; }
+        public String CategoryId { get; set; }
     }
 }

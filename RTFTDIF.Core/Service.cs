@@ -1,4 +1,5 @@
 ﻿using RTFTDIF.Core.Models;
+using RTFTDIF.DataAccesss;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,33 +14,39 @@ namespace RTFTDIF.Core
         private static List<CategoryItemModel> _categories = new List<CategoryItemModel>();
         List<Item> items = new List<Item>();
         private static Service _service;
+        private static SqlCeDB _database;
 
         private static Dictionary<CategoryItemModel, List<Item>> data = new Dictionary<CategoryItemModel, List<Item>>();
 
         private Service()
         {
+            using (_database = SqlCeDB.NewInstance) ;
+
             Random rnd = new Random();
             for (int i = 1; i <= 100; i++)
             {
-                var cat = new CategoryItemModel()
-                {
-                    Id = "C" + i,
-                    CategoryName = $"Category - {i}",
-                    FilesCount = rnd.Next(1, 100),
-                    Size = $"{rnd.Next(50, 5000)} MB",
-                };
                 var itms = new List<Item>();
-                for (int j = 1; j <= 10000; j++)
+                int csize = 0;
+                for (int j = 1; j <= 2; j++)
                 {
                     itms.Add(new Item()
                     {
                         Id = "I" + i + "" + j,
                         Name = $"C{i}_Item " + j,
                         Path = "F:/Dummy/Path/To/File/",
-                        Size = rnd.Next(1, 50) + "MB",
+                        Size = (csize+=rnd.Next(1, 50)) + "MB",
                         Format = "mp3"
                     }); ;
                 }
+
+                var cat = new CategoryItemModel()
+                {
+                    Id = "C" + i,
+                    CategoryName = $"Category - {i}",
+                    FilesCount = rnd.Next(1, 100),
+                    Size = $"{csize} MB",
+                };
+
                 data.Add(cat, itms);
             }            
         }
@@ -50,6 +57,7 @@ namespace RTFTDIF.Core
             {
                 _service = new Service();
             }
+
             return _service;
         }
 
@@ -112,6 +120,26 @@ namespace RTFTDIF.Core
                         break;
                     }
                 }
+            }
+
+            return d;
+        }
+
+
+        public List<Item> AddItems(List<Item> items)
+        {
+            List<Item> d = new List<Item>();
+            var catId = items.First().CategoryId;
+            foreach (var k in data.Keys)
+            {
+                if (k.Id == catId) {
+                    data.TryGetValue(k, out d);
+                    d.AddRange(items);
+                    data.Remove(k);
+                    data.Add(k, d);
+                    break;
+                }
+                
             }
 
             return d;
