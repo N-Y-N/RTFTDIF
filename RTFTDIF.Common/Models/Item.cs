@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RTFTDIF.Core.Models
+namespace RTFTDIF.Common.Models
 {
-    public class Item
+    public class Item : BaseModel
     {
-        public String Id { get; set; }
         public String Name { get; set; }
         public String Path { get; set; }
         public String Size { get; set; }

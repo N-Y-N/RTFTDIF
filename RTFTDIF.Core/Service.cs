@@ -1,8 +1,9 @@
-﻿using RTFTDIF.Core.Models;
+﻿using RTFTDIF.Common.Models;
 using RTFTDIF.DataAccesss;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,44 +12,14 @@ namespace RTFTDIF.Core
 {
     public class Service
     {
-        private static List<CategoryItemModel> _categories = new List<CategoryItemModel>();
+        private static List<Category> _categories = new List<Category>();
         List<Item> items = new List<Item>();
         private static Service _service;
         private static SqlCeDB _database;
-
-        private static Dictionary<CategoryItemModel, List<Item>> data = new Dictionary<CategoryItemModel, List<Item>>();
-
+        
         private Service()
         {
-            using (_database = SqlCeDB.NewInstance) ;
-
-            Random rnd = new Random();
-            for (int i = 1; i <= 100; i++)
-            {
-                var itms = new List<Item>();
-                int csize = 0;
-                for (int j = 1; j <= 2; j++)
-                {
-                    itms.Add(new Item()
-                    {
-                        Id = "I" + i + "" + j,
-                        Name = $"C{i}_Item " + j,
-                        Path = "F:/Dummy/Path/To/File/",
-                        Size = (csize+=rnd.Next(1, 50)) + "MB",
-                        Format = "mp3"
-                    }); ;
-                }
-
-                var cat = new CategoryItemModel()
-                {
-                    Id = "C" + i,
-                    CategoryName = $"Category - {i}",
-                    FilesCount = rnd.Next(1, 100),
-                    Size = $"{csize} MB",
-                };
-
-                data.Add(cat, itms);
-            }            
+            using (_database = SqlCeDB.NewInstance);
         }
 
         public static Service Instance()
@@ -61,90 +32,95 @@ namespace RTFTDIF.Core
             return _service;
         }
 
-        public List<CategoryItemModel> GetAllCategories() {
-            return  data.Keys.ToList();
+        public List<Category> GetAllCategories() {
+            return _database.GetCategories();
         }
 
-        public List<Item> GetCategoryItems(string id)
+        public List<Item> GetCategoryItems(string categoryId)
         {
-            var key = data.Keys.First(x => x.Id.Equals(id, StringComparison.InvariantCultureIgnoreCase));
-            List<Item> i = new List<Item>();
-            data.TryGetValue(key, out i);
-            return i;
-        }
-
-        public List<Item> DeleteCategoryItems(string catId, List<string> ids)
-        {
-            var key = data.Keys.First(x => x.Id.Equals(catId, StringComparison.InvariantCultureIgnoreCase));
-            List<Item> i = new List<Item>();
-            data.TryGetValue(key, out i);
-            i = i.Where(x => !ids.Contains(x.Id)).ToList();
-            
-            return i;
-        }
-
-        public List<Item> DeleteCategoryItems(List<string> ids)
-        {
-            List<Item> d = new List<Item>();
-            foreach (var k in data.Keys)
-            {                
-                if (data.TryGetValue(k, out d))
-                {
-                    bool contains = d.Any(it => ids.Contains(it.Id));
-                    if (contains)
-                    { 
-                        d = d.Where(x => !ids.Contains(x.Id)).ToList();
-                        data.Remove(k);
-                        data.Add(k, d);
-                        break;
-                    }
-                }
+            var items = _database.GetItems(categoryId).Where(item => File.Exists(Path.Combine(item.Path, item.Name))).ToList();
+            FileInfo fileInfo;
+            foreach(var itm in items)
+            {
+                fileInfo = new FileInfo(Path.Combine(itm.Path, itm.Name));
+                itm.Size = ToMB(fileInfo.Length) + "";
+                itm.Path = fileInfo.DirectoryName;
+                itm.Name = fileInfo.Name;
+                itm.Format = fileInfo.Extension;
             }
 
-            return d;
+            return items.ToList();
         }
 
-        public List<Item> RemoveCategoryItems(List<string> ids)
+        public List<string> DeleteCategoryItems(List<string> ids)
         {
-            List<Item> d = new List<Item>();
-            foreach (var k in data.Keys)
+            List<String> undeletedFiles = new List<string>();
+            List<String> deletedFiles = new List<string>();
+            var items = _database.GetItems(ids);
+            String fullFilePath;
+            foreach (var itm in items)
             {
-                if (data.TryGetValue(k, out d))
+                fullFilePath = Path.Combine(itm.Path, itm.Name);
+                try
                 {
-                    bool contains = d.Any(it => ids.Contains(it.Id));
-                    if (contains)
+                    if (File.Exists(fullFilePath))
                     {
-                        d = d.Where(x => !ids.Contains(x.Id)).ToList();
-                        data.Remove(k);
-                        data.Add(k, d);
-                        break;
+                        File.Delete(fullFilePath);
+                        deletedFiles.Add(itm.Id);
                     }
                 }
-            }
-
-            return d;
-        }
-
-
-        public List<Item> AddItems(List<Item> items)
-        {
-            List<Item> d = new List<Item>();
-            var catId = items.First().CategoryId;
-            foreach (var k in data.Keys)
-            {
-                if (k.Id == catId) {
-                    data.TryGetValue(k, out d);
-                    d.AddRange(items);
-                    data.Remove(k);
-                    data.Add(k, d);
-                    break;
+                catch
+                {
+                    undeletedFiles.Add(fullFilePath);
                 }
-                
             }
 
-            return d;
+            _database.DeleteItems(deletedFiles);
+            return undeletedFiles;
+        }
+
+        public bool RemoveCategoryItems(List<string> ids)
+        {
+            return _database.DeleteItems(ids) == ids.Count;
         }
 
 
+        public bool AddItems(List<Item> items)
+        {
+            items.ForEach((item) => item.IsActive = true);
+            return _database.SaveItems(items);
+        }
+
+        public bool SaveCategory(Category category) 
+        {
+            category.Id = Guid.NewGuid().ToString();
+            category.IsActive = true;
+           return _database.SaveCategory(category);
+        }
+
+        private double ToMB(long bytes)
+        {
+            return DivideByStdBlockSize(bytes);
+        }
+
+        private double ToGB(long bytes)
+        {
+            return DivideByStdBlockSize(ToMB(bytes));
+        }
+
+        private double DivideByStdBlockSize(long value)
+        {
+            return value / 1024;
+        }
+
+        private double DivideByStdBlockSize(double value)
+        {
+            return value / 1024;
+        }
+
+        private double DivideByStdBlockSize(int value)
+        {
+            return value / 1024;
+        }
     }
 }

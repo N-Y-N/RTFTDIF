@@ -2,7 +2,7 @@
 using Prism.Mvvm;
 using RTFTDIF.Common;
 using RTFTDIF.Core;
-using RTFTDIF.Core.Models;
+using RTFTDIF.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

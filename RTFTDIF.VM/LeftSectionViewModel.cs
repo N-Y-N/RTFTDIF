@@ -4,7 +4,7 @@ using Prism.Mvvm;
 using RTFTDIF.Common;
 using RTFTDIF.Core;
 using RTFTDIF.Core.Events;
-using RTFTDIF.Core.Models;
+using RTFTDIF.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace RTFTDIF.VM
 {
@@ -19,26 +20,48 @@ namespace RTFTDIF.VM
     {
         private Service _service;
         private IEventAggregator _eventAggregator;
+        private IDialogCoordinator _dialog;
+
         #region Constructor
-        public LeftSectionViewModel(Service service, IEventAggregator eventAggregator)
+        public LeftSectionViewModel(Service service, IEventAggregator eventAggregator, IDialogCoordinator dialog)
         {
             _eventAggregator = eventAggregator;
             _service = service;
             _eventAggregator.GetEvent<DraggedFilesEvent>().Subscribe(OnDraggedFiles);
+            _eventAggregator.GetEvent<RefreshCategoriesEvent>().Subscribe(ReloadCategories);
+            _dialog = dialog;
+            LoadAllCategories();
+        }
 
+        private void ReloadCategories()
+        {
+            Categories.Clear();
+            LoadAllCategories();
+        }
+
+        private void LoadAllCategories() 
+        {
             var c = _service.GetAllCategories();
+            int totalSize = 0, totalFiles = 0;
             var cc = c.Select(x => new CategoryItemControlViewModel()
             {
                 Id = x.Id,
                 CategoryName = x.CategoryName,
                 FilesCount = x.FilesCount,
-                Size = x.Size,
+                Size = x.Size + " MB",
                 CategoryId = x.Id
             }).ToList();
+
+            foreach(var item in cc)
+            {
+                totalSize += (item.Size != null) ? Convert.ToInt32(item.Size.Split(' ')[0]) : 0;
+                totalFiles += item.FilesCount;
+            }
+
             Total = new CategoryItemControlViewModel()
             {
-                FilesCount = 1000,
-                Size = "56 GB"
+                FilesCount = totalFiles,
+                Size = totalSize + " MB"
             };
             Categories = new ObservableCollection<CategoryItemControlViewModel>(cc);
         }
@@ -57,16 +80,20 @@ namespace RTFTDIF.VM
                         {
                             CategoryId = draggedFilesEventArgs.CategoryId,
                             Format = fileInfo.Extension,
-                            Id = "D_I" + rnd.Next(1, 1000),
+                            Id = Guid.NewGuid().ToString(),
                             Name = fileInfo.Name,
                             Path = fileInfo.DirectoryName,
-                            Size = fileInfo.Length / 1024 / 1024 + "MB",
-                            Type = fileInfo.Attributes.HasFlag(FileAttributes.Directory) ? ItemType.Folder : ItemType.File
+                            Size = fileInfo.Length / 1024 / 1024 + "",
+                            Type = fileInfo.Attributes.HasFlag(FileAttributes.Directory) ? ItemType.Folder : ItemType.File,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now
                         }
                         ); ; ;
                 }
             }
             _service.AddItems(items);
+            _eventAggregator.GetEvent<CategorySelectedEvent>().Publish(draggedFilesEventArgs.CategoryId);
+            ReloadCategories();
         }
 
         #endregion
@@ -108,18 +135,29 @@ namespace RTFTDIF.VM
             return Categories?.Count > 0;
         }
 
-        private DelegateCommand<string> _getItemsCommand;
-        public DelegateCommand<string> GetItemsCommand =>
-            _getItemsCommand ?? (_getItemsCommand = new DelegateCommand<string>(ExecuteGetItemsCommand));
+        private DelegateCommand _addCategoryCommand;
+        public DelegateCommand AddCategoryCommand =>
+            _addCategoryCommand ?? (_addCategoryCommand = new DelegateCommand(ExecuteAddCategoryCommand));
 
-        void ExecuteGetItemsCommand(string parameter)
+        async void ExecuteAddCategoryCommand()
         {
+            MetroDialogSettings mds = new MetroDialogSettings();
+            mds.AnimateShow = false;
+            mds.AnimateHide = false;
             
+            string catName = await _dialog.ShowInputAsync(this, "Input Required", "How do you wanna call this Category?", mds);
+            if (catName != null) 
+            {
+                Category category = new Category();
+                category.CategoryName = catName;
+                category.CreatedDate = DateTime.Now;
+                category.UpdatedDate = DateTime.Now;
+
+                _service.SaveCategory(category);
+                LoadAllCategories();
+            }
         }
 
-        bool CanExecuteGetItemsCommand(String id) {
-            return true;
-        }
         #endregion
     }
 }

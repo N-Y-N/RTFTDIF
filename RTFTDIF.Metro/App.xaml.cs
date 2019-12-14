@@ -6,6 +6,7 @@ using Prism.Mvvm;
 using System;
 using MahApps.Metro.Controls;
 using RTFTDIF.Core;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace RTFTDIF.Metro
 {
@@ -23,6 +24,7 @@ namespace RTFTDIF.Metro
         {
             Service service = Service.Instance();
             containerRegistry.RegisterInstance<Service>(service);
+            containerRegistry.RegisterInstance<IDialogCoordinator>(DialogCoordinator.Instance);
         }
 
         protected override void ConfigureViewModelLocator()

@@ -16,7 +16,6 @@ namespace RTFTDIF.Metro.Controls
         {
             _eventAggregator = ea;
             InitializeComponent();
-            //regionManager.RegisterViewWithRegion("CategoryListRegion", typeof(CategoryItemControl));
             
         }
 

@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RTFTDIF.DataAccesss</RootNamespace>
     <AssemblyName>RTFTDIF.DataAccesss</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,9 +32,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.30\lib\net461\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="DbInitializer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Libraries\NeotericDev.Commons\DbInitializer\bin\Release\DbInitializer.dll</HintPath>
+      <HintPath>..\..\..\Libraries\NeotericDev.Commons\DbInitializer\bin\Debug\DbInitializer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -60,6 +64,12 @@
     <Content Include="Sql\RTFTDIF.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RTFTDIF.Common\RTFTDIF.Common.csproj">
+      <Project>{872ED6AF-A05E-433B-B792-B94290BF5272}</Project>
+      <Name>RTFTDIF.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -71,21 +71,5 @@ namespace RTFTDIF.Metro.Controls
         // Using a DependencyProperty as the backing store for CatId.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CatIdProperty =
             DependencyProperty.Register("CatId", typeof(string), typeof(CategoryItemControl), new PropertyMetadata(""));
-
-
-        //public static readonly RoutedEvent CategorySelectedEvent = EventManager.RegisterRoutedEvent(nameof(CategorySelectedEventHandler),
-        //    RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(CategoryItemControl));
-
-        //public event RoutedEventHandler CategorySelectedEventHandler
-        //{
-        //    add { AddHandler(CategorySelectedEvent, value); }
-        //    remove { RemoveHandler(CategorySelectedEvent, value); }
-        //}
-
-        //void RaiseCategorySelectedEvent()
-        //{
-        //    RoutedEventArgs eventArgs = new RoutedEventArgs(CategoryItemControl.CategorySelectedEvent);
-        //    RaiseEvent(eventArgs);
-        //}
     }
 }

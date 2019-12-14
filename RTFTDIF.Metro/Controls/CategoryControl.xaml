@@ -26,7 +26,7 @@
             <Label Content="Sort By : " Grid.Column="0" Style="{StaticResource BaseStyleFont}" Foreground="{StaticResource AccentColorBrush}" FontSize="30"></Label>
             <local:ButtonWithSortIndicator Grid.Column="1" Text="Size" Opacity="0.25"  Command="{Binding SortCommand}" CommandParameter="Size"></local:ButtonWithSortIndicator>
             <local:ButtonWithSortIndicator Grid.Column="2" Text="Files" Opacity="0.25" Command="{Binding SortCommand}" CommandParameter="File"></local:ButtonWithSortIndicator>
-            <Button  Grid.Column="4" Padding="10" FontSize="30" Style="{DynamicResource MetroCircleButtonStyle}" FontFamily="{StaticResource FontAwesome}" Content="&#xf067;" Width="50" Height="50" ></Button>
+            <Button  Grid.Column="4" Padding="10" FontSize="30" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding AddCategoryCommand}" FontFamily="{StaticResource FontAwesome}" Content="&#xf067;" Width="50" Height="50" ></Button>
         </Grid>
         <!--<ContentControl Grid.Row="1" x:Name="CategoryItemListControlRegion" prism:RegionManager.RegionName="CategoryItemListControlRegion"></ContentControl>-->
         <ListView Grid.Row="1" x:Name="CategoryItemListControlRegion" ItemsSource="{Binding Categories}" >

@@ -1,6 +1,6 @@
 ﻿
 using Prism.Events;
-using RTFTDIF.Core.Models;
+using RTFTDIF.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +36,14 @@ namespace RTFTDIF.Core.Events
     }
 
     public class CategoryItemsLoadedEvent : PubSubEvent<List<Item>>
-    { 
+    {
+    }
+
+    public class DisplayMessageEvent : PubSubEvent<string>
+    {
+    }
+
+    public class RefreshCategoriesEvent : PubSubEvent
+    {
     }
 }

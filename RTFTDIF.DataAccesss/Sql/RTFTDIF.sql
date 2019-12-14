@@ -17,7 +17,7 @@ CREATE TABLE [Item] (
 , [Name] nvarchar(200) DEFAULT ('<No Name>') NOT NULL
 , [Type] nvarchar(10) NOT NULL
 , [Path] nvarchar(200) NOT NULL
-, [Size] nvarchar(10) NOT NULL
+, [Size] int NOT NULL
 , [CreatedDate] datetime DEFAULT (GETDATE()) NOT NULL
 , [UpdatedDate] datetime NOT NULL
 , [IsActive] bit DEFAULT (1) NOT NULL
@@ -25,5 +25,5 @@ CREATE TABLE [Item] (
 GO
 ALTER TABLE [Item] ADD CONSTRAINT [PK_Item] PRIMARY KEY ([Id]);
 GO
-ALTER TABLE [Item] ADD CONSTRAINT [FK_Item_Category] FOREIGN KEY ([Id]) REFERENCES Category(Id);
+ALTER TABLE [Item] ADD CONSTRAINT [FK_Item_Category] FOREIGN KEY ([CategoryId]) REFERENCES Category(Id);
 GO

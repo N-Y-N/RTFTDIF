@@ -1,6 +1,7 @@
 ﻿using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
+using RTFTDIF.Common.Models;
 using RTFTDIF.Core;
 using RTFTDIF.Core.Events;
 using System;
@@ -33,33 +34,55 @@ namespace RTFTDIF.VM
             set { SetProperty(ref _items, value); }
         }
 
+        private string _categoryId;
+        public string CategoryId
+        {
+            get { return _categoryId; }
+            set { SetProperty(ref _categoryId, value); }
+        }
+
         private ObservableCollection<ItemDetailViewModel> _backupData;
 
         #region Commands
-        private DelegateCommand _deleteItemsCommand;
-        public DelegateCommand DeleteItemsCommand =>
-            _deleteItemsCommand ?? (_deleteItemsCommand = new DelegateCommand(ExecuteDeleteItemsCommand, CanExecuteDeleteItemsCommand).ObservesProperty(()=> Items));
+        private DelegateCommand<string> _deleteItemsCommand;
+        public DelegateCommand<string> DeleteItemsCommand =>
+            _deleteItemsCommand ?? (_deleteItemsCommand = new DelegateCommand<string>(ExecuteDeleteItemsCommand, CanExecuteDeleteItemsCommand).ObservesProperty(()=> Items));
 
-        void ExecuteDeleteItemsCommand()
-        {
-           PopulatData( _service.DeleteCategoryItems(Items.Where(x=>x.Selected).Select(x=>x.Id).ToList()));
+        void ExecuteDeleteItemsCommand(string categoryId)
+        {           
+            var undeletedFiles = _service.DeleteCategoryItems(Items.Where(x => x.Selected).Select(x => x.Id).ToList());
+            if(undeletedFiles != null && undeletedFiles.Count > 0)
+            {
+                int fileCount = 0;
+                StringBuilder sb = new StringBuilder();
+                sb.Append("\nUnable to delete the following files");
+                sb.Append("\n====================================");
+                foreach (var file in undeletedFiles)
+                {
+                    sb.Append($"\n{++fileCount}. {file}");
+                }
+                _eventAggregator.GetEvent<DisplayMessageEvent>().Publish(sb.ToString());
+            }
+            _eventAggregator.GetEvent<RefreshCategoriesEvent>().Publish();
+            PopulatData(_service.GetCategoryItems(categoryId));
         }
 
-        bool CanExecuteDeleteItemsCommand()
+        bool CanExecuteDeleteItemsCommand(string categoryId)
         {
             return Items != null && Items.Count() > 0;
         }
 
-        private DelegateCommand removeItemsCommand;
-        public DelegateCommand RemoveItemsCommand =>
-            removeItemsCommand ?? (removeItemsCommand = new DelegateCommand(ExecuteRemoveItemsCommand, CanExecuteRemoveItemsCommand).ObservesProperty(() => Items));
+        private DelegateCommand<string> removeItemsCommand;
+        public DelegateCommand<string> RemoveItemsCommand =>
+            removeItemsCommand ?? (removeItemsCommand = new DelegateCommand<string>(ExecuteRemoveItemsCommand, CanExecuteRemoveItemsCommand).ObservesProperty(() => Items));
 
-        void ExecuteRemoveItemsCommand()
+        void ExecuteRemoveItemsCommand(string categoryId)
         {
-            PopulatData(_service.RemoveCategoryItems(Items.Where(x => x.Selected).Select(x => x.Id).ToList()));
+            _service.RemoveCategoryItems(Items.Where(x => x.Selected).Select(x => x.Id).ToList());
+            PopulatData(_service.GetCategoryItems(categoryId));
         }
 
-        bool CanExecuteRemoveItemsCommand()
+        bool CanExecuteRemoveItemsCommand(string categoryId)
         {
             return Items != null && Items.Count() > 0;
         }
@@ -67,14 +90,15 @@ namespace RTFTDIF.VM
 
         private void LoadCategoryItems(string id)
         {
-            var ii = _service.GetCategoryItems(id);
-            List<ItemDetailViewModel> items = PopulatData(ii);
+            CategoryId = id;
+            var categoryItems = _service.GetCategoryItems(id);
+            List<ItemDetailViewModel> items = PopulatData(categoryItems);
             
 
             System.Diagnostics.Debug.WriteLine($"Event Subsribed and processed at {DateTime.Now}");
         }
 
-        private List<ItemDetailViewModel> PopulatData( List<Core.Models.Item> ii)
+        private List<ItemDetailViewModel> PopulatData( List<Item> ii)
         {
             int i = 1;
             var items = ii.Select(x => new ItemDetailViewModel()
