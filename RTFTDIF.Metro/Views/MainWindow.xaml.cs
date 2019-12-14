@@ -16,12 +16,28 @@ namespace RTFTDIF.Metro.Views
     public partial class MainWindow : MetroWindow
     {
         private IRegionManager regionManager;
+        private IEventAggregator _eventAggregator;
         public MainWindow(IRegionManager regionManager, IEventAggregator eventAggregator)
         {
             InitializeComponent();
             this.regionManager = regionManager;
+            _eventAggregator = eventAggregator;
             eventAggregator.GetEvent<DisplayMessageEvent>().Subscribe(DisplayMessage);
+            eventAggregator.GetEvent<RequestUserInputEvent>().Subscribe(RequestUserInput);
             RegisterRegions();
+        }
+
+        private async void RequestUserInput(RequestUserInputEventArgs reqUserInputArg)
+        {
+            MetroDialogSettings dialogSettings = new MetroDialogSettings() { 
+                AnimateHide = false,
+                AnimateShow = false
+            };
+            string responseContent = await this.ShowInputAsync(reqUserInputArg.Title, reqUserInputArg.Message, dialogSettings);
+            _eventAggregator.GetEvent<UserInputResponseEvent<string>>().Publish(
+                new UserInputResponseEventArgs<string>() { 
+                    Content = responseContent
+                });
         }
 
         private void DisplayMessage(string message)
@@ -33,7 +49,6 @@ namespace RTFTDIF.Metro.Views
         {
             regionManager.RegisterViewWithRegion("LeftPanRegion", typeof(LeftSection));
             regionManager.RegisterViewWithRegion("RightPanRegion", typeof(RightDetailSection));
-           // DataContext = new LeftSectionViewModel();
         }
     }
 }

@@ -10,9 +10,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MahApps.Metro.Controls.Dialogs;
 
 namespace RTFTDIF.VM
 {
@@ -20,17 +17,30 @@ namespace RTFTDIF.VM
     {
         private Service _service;
         private IEventAggregator _eventAggregator;
-        private IDialogCoordinator _dialog;
 
         #region Constructor
-        public LeftSectionViewModel(Service service, IEventAggregator eventAggregator, IDialogCoordinator dialog)
+        public LeftSectionViewModel(Service service, IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
             _service = service;
             _eventAggregator.GetEvent<DraggedFilesEvent>().Subscribe(OnDraggedFiles);
             _eventAggregator.GetEvent<RefreshCategoriesEvent>().Subscribe(ReloadCategories);
-            _dialog = dialog;
+            _eventAggregator.GetEvent<UserInputResponseEvent<string>>().Subscribe(CreateCategory);
             LoadAllCategories();
+        }
+
+        private void CreateCategory(UserInputResponseEventArgs<string> responseEventArgs)
+        {
+            if (responseEventArgs.Content != null)
+            {
+                Category category = new Category();
+                category.CategoryName = responseEventArgs.Content;
+                category.CreatedDate = DateTime.Now;
+                category.UpdatedDate = DateTime.Now;
+
+                _service.SaveCategory(category);
+                LoadAllCategories();
+            }
         }
 
         private void ReloadCategories()
@@ -48,7 +58,7 @@ namespace RTFTDIF.VM
                 Id = x.Id,
                 CategoryName = x.CategoryName,
                 FilesCount = x.FilesCount,
-                Size = x.Size + " MB",
+                Size = (x.Size != null && !x.Size.Equals("", StringComparison.InvariantCultureIgnoreCase) ? x.Size : "0") + " MB",
                 CategoryId = x.Id
             }).ToList();
 
@@ -126,8 +136,8 @@ namespace RTFTDIF.VM
         void ExecuteSortCommand(String typeSort)
         {
             Sort sort = EnumParser.Parse<Sort>(typeSort);
-            //var categoriesBackup = Categories; TODO : Remove if not needed
-            Categories = new ObservableCollection<CategoryItemControlViewModel> (Categories.OrderBy(x => sort == Sort.File ? x.FilesCount.ToString() : x.Size).ToList());
+            //var categoriesBackup = Categories;// TODO : Remove if not needed
+            Categories = new ObservableCollection<CategoryItemControlViewModel> (Categories.OrderBy(x => sort == Sort.File ? x.FilesCount.ToString() : x.Size.Split(' ')[0]).ToList());
         }
 
         bool CanExecuteSortCommand(String typeSort)
@@ -141,21 +151,10 @@ namespace RTFTDIF.VM
 
         async void ExecuteAddCategoryCommand()
         {
-            MetroDialogSettings mds = new MetroDialogSettings();
-            mds.AnimateShow = false;
-            mds.AnimateHide = false;
-            
-            string catName = await _dialog.ShowInputAsync(this, "Input Required", "How do you wanna call this Category?", mds);
-            if (catName != null) 
-            {
-                Category category = new Category();
-                category.CategoryName = catName;
-                category.CreatedDate = DateTime.Now;
-                category.UpdatedDate = DateTime.Now;
-
-                _service.SaveCategory(category);
-                LoadAllCategories();
-            }
+            _eventAggregator.GetEvent<RequestUserInputEvent>().Publish(new RequestUserInputEventArgs() { 
+                Title = "Input Required",
+                Message = "How do you wanna call"
+            });            
         }
 
         #endregion

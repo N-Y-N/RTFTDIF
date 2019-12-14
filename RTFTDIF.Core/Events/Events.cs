@@ -19,6 +19,17 @@ namespace RTFTDIF.Core.Events
         public List<string> ItemIds { get; set; }
     }
 
+    public class RequestUserInputEventArgs
+    {
+        public string Title { get; set; }
+        public string Message { get; set; }
+    }
+
+    public class UserInputResponseEventArgs<T>
+    {
+        public T Content { get; set; }
+    }
+
     public class DraggedFilesEvent : PubSubEvent<DraggedFilesEventArgs>
     {
     }
@@ -44,6 +55,14 @@ namespace RTFTDIF.Core.Events
     }
 
     public class RefreshCategoriesEvent : PubSubEvent
+    {
+    }
+
+    public class RequestUserInputEvent : PubSubEvent<RequestUserInputEventArgs>
+    {
+    }
+
+    public class UserInputResponseEvent<T> : PubSubEvent<UserInputResponseEventArgs<T>>
     {
     }
 }

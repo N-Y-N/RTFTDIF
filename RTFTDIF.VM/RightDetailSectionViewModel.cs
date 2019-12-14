@@ -7,6 +7,8 @@ using RTFTDIF.Core.Events;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +19,7 @@ namespace RTFTDIF.VM
     {
         IEventAggregator _eventAggregator;
         Service _service;
+
         #region Constructor
         public RightDetailSectionViewModel(IEventAggregator eventAggregator, Service service)
         {
@@ -26,6 +29,10 @@ namespace RTFTDIF.VM
             _eventAggregator.GetEvent<FilterItemsEvent>().Subscribe(FilterItems);
         }
         #endregion
+
+        #region Properties
+
+        private ObservableCollection<ItemDetailViewModel> _backupData;
 
         private ObservableCollection<ItemDetailViewModel> _items;
         public ObservableCollection<ItemDetailViewModel> Items
@@ -41,7 +48,14 @@ namespace RTFTDIF.VM
             set { SetProperty(ref _categoryId, value); }
         }
 
-        private ObservableCollection<ItemDetailViewModel> _backupData;
+        private ItemDetailViewModel _selectedItem;
+        public ItemDetailViewModel SelectedItem
+        {
+            get { return _selectedItem; }
+            set { SetProperty(ref _selectedItem, value); }
+        }
+
+        #endregion
 
         #region Commands
         private DelegateCommand<string> _deleteItemsCommand;
@@ -86,6 +100,24 @@ namespace RTFTDIF.VM
         {
             return Items != null && Items.Count() > 0;
         }
+
+        private DelegateCommand _openInExplorerCommand;
+        public DelegateCommand OpenInExplorerCommand =>
+            _openInExplorerCommand ?? (_openInExplorerCommand = new DelegateCommand(ExecuteOpenInExplorerCommand, CanExecuteOpenInExplorerCommand).ObservesProperty(()=> SelectedItem));
+
+        void ExecuteOpenInExplorerCommand()
+        {
+            string arg = "/select, \"" + Path.Combine(SelectedItem.ItemPath, SelectedItem.ItemName) + "\"";
+            Process explorer = Process.Start("explorer.exe", arg);
+
+            System.Threading.Thread.Sleep(3000);
+        }
+
+        bool CanExecuteOpenInExplorerCommand()
+        {
+            return SelectedItem != null;
+        }
+
         #endregion
 
         private void LoadCategoryItems(string id)

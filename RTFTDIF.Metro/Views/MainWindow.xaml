@@ -4,8 +4,9 @@
         xmlns:mam="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:prism="http://prismlibrary.com/"
                  xmlns:controls="clr-namespace:RTFTDIF.Metro.Controls"
-                 prism:ViewModelLocator.AutoWireViewModel="False"
+                 prism:ViewModelLocator.AutoWireViewModel="True"
         Title="{Binding Title}" Height="350" Width="525"
+                 MinHeight="{Binding MinHeight}" MinWidth="{Binding MinWidth}"
                  WindowState="Maximized">
     <Grid>
         <Grid.ColumnDefinitions>

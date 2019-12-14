@@ -36,7 +36,7 @@
             <TextBox Grid.Column="1" Grid.ColumnSpan="6" Foreground="{StaticResource AccentColorBrush}" TextChanged="TextBox_TextChanged" ></TextBox>
             <Button Grid.Column="8" Style="{DynamicResource MetroCircleButtonStyle}" FontSize="25" FontFamily="{StaticResource FontAwesome}" Width="50" Height="50" Command="{Binding DeleteItemsCommand}" CommandParameter="{Binding CategoryId}">&#xf2ed;</Button>
             <Button Grid.Column="9" Style="{DynamicResource MetroCircleButtonStyle}" FontSize="25" FontFamily="{StaticResource FontAwesome}" Width="50" Height="50" Command="{Binding RemoveItemsCommand}" CommandParameter="{Binding CategoryId}">&#xf068;</Button>
-            <Button Grid.Column="10" Style="{DynamicResource MetroCircleButtonStyle}" FontSize="25" FontFamily="{StaticResource FontAwesome}" Width="50" Height="50">&#xf07c;</Button>
+            <Button Grid.Column="10" Style="{DynamicResource MetroCircleButtonStyle}" FontSize="25" FontFamily="{StaticResource FontAwesome}" Width="50" Height="50" Command="{Binding OpenInExplorerCommand}" >&#xf07c;</Button>
             <Button Grid.Column="14" Style="{DynamicResource MetroCircleButtonStyle}" FontSize="25" FontFamily="{StaticResource FontAwesome}" Width="50" Height="50">&#xf013;</Button>
         </Grid>
         <Grid Grid.Row="1">
@@ -59,7 +59,7 @@
             <Label Content="Path" Grid.Row="0" Grid.Column="3" FontSize="20" />
             <Label Content="Type" Grid.Row="0" Grid.Column="4" FontSize="20" />
             <Label Content="Size" Grid.Row="0" Grid.Column="5" FontSize="20" />
-            <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" ItemsSource="{Binding Items}" ScrollViewer.CanContentScroll="True">
+            <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" SelectionMode="Single"  ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" ScrollViewer.CanContentScroll="True">
                 <ListView.View>
 
                     <GridView AllowsColumnReorder="true"
