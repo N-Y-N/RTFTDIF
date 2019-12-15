@@ -149,7 +149,7 @@ namespace RTFTDIF.VM
         public DelegateCommand AddCategoryCommand =>
             _addCategoryCommand ?? (_addCategoryCommand = new DelegateCommand(ExecuteAddCategoryCommand));
 
-        async void ExecuteAddCategoryCommand()
+        void ExecuteAddCategoryCommand()
         {
             _eventAggregator.GetEvent<RequestUserInputEvent>().Publish(new RequestUserInputEventArgs() { 
                 Title = "Input Required",

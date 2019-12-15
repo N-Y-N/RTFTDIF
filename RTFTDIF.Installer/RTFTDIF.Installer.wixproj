@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" InitialTargets="EnsureWixToolsetInstalled" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>3.10</ProductVersion>
+    <ProjectGuid>29fce030-f3f9-4067-908d-96c595e6f12f</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>RTFTDIF_Installer</OutputName>
+    <OutputType>Package</OutputType>
+    <Cultures>;</Cultures>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Debug</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Components.wxs" />
+    <Compile Include="Directories.wxs" />
+    <Compile Include="Features.wxs" />
+    <Compile Include="GeneratedComponents.wxs" />
+    <Compile Include="Product.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RTFTDIF.Metro\RTFTDIF.Metro.csproj">
+      <Name>RTFTDIF.Metro</Name>
+      <Project>{ac6d54ff-0e73-4f26-b890-6753ed53c5a5}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="English.wxl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets" />
+    <Folder Include="Assets\Docs\" />
+    <Folder Include="Assets\Images" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Docs\RTFTDIFLicenseAgreement.rtf" />
+    <Content Include="Assets\Images\InstallerBanner.bmp" />
+    <Content Include="Assets\Images\InstallerBG.bmp" />
+    <Content Include="Assets\Images\RTFTDIF.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUtilExtension">
+      <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
+      <Name>WixUtilExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixNetFxExtension">
+      <HintPath>$(WixExtDir)\WixNetFxExtension.dll</HintPath>
+      <Name>WixNetFxExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
+    </WixExtension>
+  </ItemGroup>
+  <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />
+  <Target Name="EnsureWixToolsetInstalled" Condition=" '$(WixTargetsImported)' != 'true' ">
+    <Error Text="The WiX Toolset v3.11 (or newer) build tools must be installed to build this project. To download the WiX Toolset, see http://wixtoolset.org/releases/" />
+  </Target>
+  <PropertyGroup>
+    <DefineConstants>HarvestPath=..\RTFTDIF.Metro\bin\x64\Release</DefineConstants>
+  </PropertyGroup>
+  <Target Name="BeforeBuild">
+    <!--<Exec Command="rd /s /q $(RTFTDIF.Metro.TargetDir)"/>-->
+    <!--<HeatDirectory 
+                 OutputFile="ComponentsGenerated.wxs"
+                 DirectoryRefId="INSTALLFOLDER"
+                 ComponentGrouptName="PublishedComponentss"
+                 SuppressCom="true"
+                 Directory="..\RTFTDIF.Metro\bin\"
+                 SuppressFragements="true"
+                 SuppressRegistry="true"
+                 AutoGenerateGuids="false"
+                 GenerateGuidsNow="true"
+                 ToolPath="$(WixToolPath)"
+                 PreprocessorVariable="var.RTFTIF.METRO"
+                 />-->
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  <!--<PropertyGroup>
+    <PreBuildEvent>"$(WIX)bin\heat.exe" dir "D:\Dev\MyProjects\Windows\RTFTDIF\RTFTDIF.Metro\bin\x64\Release" -var var.HarvestPath -cg GeneratedComponents -gg -scom -sreg -sfrag -srd -out "$(ProjectDir)GeneratedComponents.wxs"</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>"cmd.exe" if not exist "$(ProjectDir)Packages" mkdir "$(ProjectDir)Packages" &amp;&amp; move "$(TargetPath)" "$(ProjectDir)\Packages\"</PostBuildEvent>
+  </PropertyGroup>-->
+</Project>
