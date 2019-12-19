@@ -55,6 +55,12 @@
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\Libraries\NeotericDev.Commons\Logger\bin\x64\Release\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NeotericDev.Commons.Logger">
+      <HintPath>..\..\..\Libraries\NeotericDev.Commons\Logger\bin\x64\Release\NeotericDev.Commons.Logger.dll</HintPath>
+    </Reference>
     <Reference Include="Prism, Version=7.2.0.1422, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.7.2.0.1422\lib\net45\Prism.dll</HintPath>
     </Reference>

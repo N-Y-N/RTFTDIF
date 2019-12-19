@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
+using static NeotericDev.Commons.Logger.LogManager;
 
 namespace RTFTDIF.VM
 {
@@ -38,6 +39,7 @@ namespace RTFTDIF.VM
             Title = "RTFTDIF-v0.1";
             MinWidth = Convert.ToInt32(ConfigurationManager.AppSettings["WinMinWidth"]);
             MinHeight =Convert.ToInt32(ConfigurationManager.AppSettings["WinMinHeight"]);
+            Logger.LogDebug(this, "Creating MainViewModel Instance");
             
         }
         private ObservableCollection<CategoryItemControlViewModel> categories;

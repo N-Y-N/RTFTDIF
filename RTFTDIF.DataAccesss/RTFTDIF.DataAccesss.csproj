@@ -55,9 +55,15 @@
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.0.30\lib\net461\Dapper.dll</HintPath>
     </Reference>
-    <Reference Include="DbInitializer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DbInitializer, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Libraries\NeotericDev.Commons\DbInitializer\bin\Debug\DbInitializer.dll</HintPath>
+      <HintPath>..\..\..\Libraries\NeotericDev.Commons\DbInitializer\bin\x64\Debug\DbInitializer.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\Libraries\NeotericDev.Commons\Logger\bin\x64\Release\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NeotericDev.Commons.Logger">
+      <HintPath>..\..\..\Libraries\NeotericDev.Commons\Logger\bin\x64\Release\NeotericDev.Commons.Logger.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -81,7 +87,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Sql\RTFTDIF.sql">
+    <Content Include="DatabseSetup\RTFTDIF.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using static NeotericDev.Commons.Logger.LogManager;
 
 namespace RTFTDIF.VM
 {
@@ -27,6 +28,7 @@ namespace RTFTDIF.VM
             _eventAggregator.GetEvent<RefreshCategoriesEvent>().Subscribe(ReloadCategories);
             _eventAggregator.GetEvent<UserInputResponseEvent<string>>().Subscribe(CreateCategory);
             LoadAllCategories();
+            Logger.LogDebug(this, $"Creating LeftSectionViewModel Instance");
         }
 
         private void CreateCategory(UserInputResponseEventArgs<string> responseEventArgs)
@@ -49,8 +51,9 @@ namespace RTFTDIF.VM
             LoadAllCategories();
         }
 
-        private void LoadAllCategories() 
+        private void LoadAllCategories()
         {
+            Logger.LogDebug(this, $"Loading Categories");
             var c = _service.GetAllCategories();
             int totalSize = 0, totalFiles = 0;
             var cc = c.Select(x => new CategoryItemControlViewModel()
@@ -74,6 +77,8 @@ namespace RTFTDIF.VM
                 Size = totalSize + " MB"
             };
             Categories = new ObservableCollection<CategoryItemControlViewModel>(cc);
+
+            Logger.LogDebug(this, $"Loaded {cc.Count} Categories");
         }
 
         private void OnDraggedFiles(DraggedFilesEventArgs draggedFilesEventArgs)
@@ -101,6 +106,7 @@ namespace RTFTDIF.VM
                         ); ; ;
                 }
             }
+            Logger.LogDebug(this, $"Dragged {items.Count} Items in Category : {draggedFilesEventArgs.CategoryId}");
             _service.AddItems(items);
             _eventAggregator.GetEvent<CategorySelectedEvent>().Publish(draggedFilesEventArgs.CategoryId);
             ReloadCategories();

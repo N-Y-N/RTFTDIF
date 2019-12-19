@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static NeotericDev.Commons.Logger.LogManager;
 
 namespace RTFTDIF.VM
 {
@@ -27,6 +28,7 @@ namespace RTFTDIF.VM
             _eventAggregator = eventAggregator;
             _eventAggregator.GetEvent<CategorySelectedEvent>().Subscribe(LoadCategoryItems);
             _eventAggregator.GetEvent<FilterItemsEvent>().Subscribe(FilterItems);
+            Logger.LogDebug(this, "Creating RightDetailSectionViewModel Instance");
         }
         #endregion
 
@@ -63,7 +65,8 @@ namespace RTFTDIF.VM
             _deleteItemsCommand ?? (_deleteItemsCommand = new DelegateCommand<string>(ExecuteDeleteItemsCommand, CanExecuteDeleteItemsCommand).ObservesProperty(()=> Items));
 
         void ExecuteDeleteItemsCommand(string categoryId)
-        {           
+        {
+            Logger.LogDebug(this, $"Delete {categoryId} triggered");
             var undeletedFiles = _service.DeleteCategoryItems(Items.Where(x => x.Selected).Select(x => x.Id).ToList());
             if(undeletedFiles != null && undeletedFiles.Count > 0)
             {
@@ -92,6 +95,7 @@ namespace RTFTDIF.VM
 
         void ExecuteRemoveItemsCommand(string categoryId)
         {
+            Logger.LogDebug(this, $"Remove Items for {categoryId} triggered");
             _service.RemoveCategoryItems(Items.Where(x => x.Selected).Select(x => x.Id).ToList());
             PopulatData(_service.GetCategoryItems(categoryId));
         }
@@ -125,9 +129,7 @@ namespace RTFTDIF.VM
             CategoryId = id;
             var categoryItems = _service.GetCategoryItems(id);
             List<ItemDetailViewModel> items = PopulatData(categoryItems);
-            
-
-            System.Diagnostics.Debug.WriteLine($"Event Subsribed and processed at {DateTime.Now}");
+            Logger.LogDebug(this, $"Populating {items.Count} Items");
         }
 
         private List<ItemDetailViewModel> PopulatData( List<Item> ii)
@@ -147,6 +149,7 @@ namespace RTFTDIF.VM
 
             Items = new ObservableCollection<ItemDetailViewModel>(items);
             _backupData = new ObservableCollection<ItemDetailViewModel>(items);
+            Logger.LogDebug(this, $"Populating {items.Count} Items");
             return items;
         }
 

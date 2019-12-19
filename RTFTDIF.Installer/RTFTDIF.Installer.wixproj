@@ -70,7 +70,7 @@
     <Error Text="The WiX Toolset v3.11 (or newer) build tools must be installed to build this project. To download the WiX Toolset, see http://wixtoolset.org/releases/" />
   </Target>
   <PropertyGroup>
-    <DefineConstants>HarvestPath=..\RTFTDIF.Metro\bin\x64\Release</DefineConstants>
+    <DefineConstants>HarvestPath=..\RTFTDIF.Metro\bin\x64\Debug</DefineConstants>
   </PropertyGroup>
   <Target Name="BeforeBuild">
     <!--<Exec Command="rd /s /q $(RTFTDIF.Metro.TargetDir)"/>-->
@@ -91,9 +91,9 @@
   <Target Name="AfterBuild">
   </Target>
   <!--<PropertyGroup>
-    <PreBuildEvent>"$(WIX)bin\heat.exe" dir "D:\Dev\MyProjects\Windows\RTFTDIF\RTFTDIF.Metro\bin\x64\Release" -var var.HarvestPath -cg GeneratedComponents -gg -scom -sreg -sfrag -srd -out "$(ProjectDir)GeneratedComponents.wxs"</PreBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
+    <PreBuildEvent>"$(WIX)bin\heat.exe" dir "D:\Dev\MyProjects\Windows\RTFTDIF\RTFTDIF.Metro\bin\x64\Debug" -directoryid INSTALLFOLDER -var var.HarvestPath -cg GeneratedComponents -gg -scom -sreg -sfrag -srd -out "$(ProjectDir)GeneratedComponents.wxs"</PreBuildEvent>
+  </PropertyGroup>-->
+  <!-- <PropertyGroup>
     <PostBuildEvent>"cmd.exe" if not exist "$(ProjectDir)Packages" mkdir "$(ProjectDir)Packages" &amp;&amp; move "$(TargetPath)" "$(ProjectDir)\Packages\"</PostBuildEvent>
   </PropertyGroup>-->
 </Project>

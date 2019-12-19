@@ -7,8 +7,8 @@ using System.Configuration;
 using System.Data.SqlServerCe;
 using Dapper;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static NeotericDev.Commons.Logger.LogManager;
+using System.IO;
 
 namespace RTFTDIF.DataAccesss
 {
@@ -20,14 +20,28 @@ namespace RTFTDIF.DataAccesss
 
         private SqlCeDB()
         {
-            _SqlCeEngine = new SqlCeEngine(conString);
-            if (!_SqlCeEngine.Verify()) 
+            try
             {
-                String relativeFilePath = ConfigurationManager.AppSettings[Constants.Keys.DbScript];
-                string fullPath = AppDomain.CurrentDomain.BaseDirectory + relativeFilePath;
-                _SqlCeEngine.CreateDatabase();
-                CreateTables(fullPath);
+                string path = Environment.CurrentDirectory + "\\log4net.config";
+                if (File.Exists(path)) {
+                    path = "Exists";
+                }
+                _SqlCeEngine = new SqlCeEngine(conString);
+                if (!_SqlCeEngine.Verify())
+                {
+                    Logger.LogDebug(this, $"Database not found. Creating Database & required tables");
+                    String relativeFilePath = ConfigurationManager.AppSettings[Constants.Keys.DbScript];
+                    string fullPath = AppDomain.CurrentDomain.BaseDirectory + relativeFilePath;
+                    _SqlCeEngine.CreateDatabase();
+                    CreateTables(fullPath);
+                }
+                Logger.LogDebug(this, "Creating SqlCeDB Instance");
             }
+            catch (Exception e)
+            {
+                Logger.LogError(this, "Exception Occured while creating SqlCeDB Instance", e);
+            }
+            
         }
 
         private void CreateTables(string fullPath)
@@ -88,11 +102,13 @@ namespace RTFTDIF.DataAccesss
             {
                 using (SqlCeConnection connection = new SqlCeConnection(conString))
                 {
+                    Logger.LogDebug(this, $"Executing NonQuery : {query}");
                     return connection.Execute(query);
                 }
             }
             catch(Exception e)
             {
+                Logger.LogError(this, $"Exception occured while executing : {query}", e);
                 return -1;
             }
         }
@@ -117,11 +133,13 @@ namespace RTFTDIF.DataAccesss
             {
                 using (SqlCeConnection connection = new SqlCeConnection(conString))
                 {
+                    Logger.LogDebug(this, $"Executing NonQuery : {query}");
                     return connection.Execute(query, param);
                 }
             }
             catch (Exception e)
             {
+                Logger.LogError(this, $"Exception occured while executing : {query}", e);
                 return -1;
             }
         }
@@ -133,11 +151,13 @@ namespace RTFTDIF.DataAccesss
             {
                 using (SqlCeConnection connection = new SqlCeConnection(conString))
                 {
+                    Logger.LogDebug(this, $"Executing Query : {query}");
                     return connection.Query<T>(query).ToList();
                 }
             }
             catch (Exception e)
             {
+                Logger.LogError(this, $"Exception occured while executing : {query}", e);
                 return null;
             }
         }
@@ -149,11 +169,13 @@ namespace RTFTDIF.DataAccesss
             {
                 using (SqlCeConnection connection = new SqlCeConnection(conString))
                 {
+                    Logger.LogDebug(this, $"Executing NonQuery : {query}");
                     return connection.Query<T>(query, param).ToList();
                 }
             }
             catch (Exception e)
             {
+                Logger.LogError(this, $"Exception occured while executing : {query}", e);
                 return null;
             }
         }

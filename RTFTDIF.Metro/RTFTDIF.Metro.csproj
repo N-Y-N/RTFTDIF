@@ -61,7 +61,11 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
+    <Reference Include="NeotericDev.Commons.Logger">
+      <HintPath>..\..\..\Libraries\NeotericDev.Commons\Logger\bin\x64\Release\NeotericDev.Commons.Logger.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -177,6 +181,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Content Include="App.config" />
+    <None Include="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -189,6 +196,9 @@
     <Resource Include="Resources\Fonts\JosefinSans-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
+    </PackageReference>
     <PackageReference Include="MahApps.Metro">
       <Version>1.6.5</Version>
     </PackageReference>
