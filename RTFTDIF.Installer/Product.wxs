@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+	<Product Id="*" Name="RTFTDIF.Installer" Language="1033" Version="0.1.0.0" Manufacturer="NYN" UpgradeCode="5d629756-06bc-4c0b-af69-1fc6c8dfee64">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" 
+             Keywords="Utility" Manufacturer="NYN"/>
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes" CompressionLevel="high"/>
+    
+    <Icon Id="APPICON.ico" SourceFile="Assets\Images\RTFTDIF.ico"/>
+
+    <Property Id="ARPPRODUCTICON" Value="APPICON.ico" />
+
+    <UIRef Id="WixUI_Minimal"/>
+
+    <WixVariable Id="WixUILicenseRtf" Value="Assets/Docs/RTFTDIFLicenseAgreement.rtf"/>
+    <WixVariable Id="WixUIBannerBmp" Value="Assets/Images/InstallerBanner.bmp"/>
+    <WixVariable Id="WixUIDialogBmp" Value="Assets/Images/InstallerBG.bmp"/>
+    
+    <!--<PropertyRef Id="WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED"/>
+
+    <Condition Message="!(loc.NETFX45REQUIREDMSG)">
+      <![CDATA[Installed OR NETFRAMEWORK46]]>
+    </Condition>-->
+
+    <FeatureRef Id="ProductFeature" >
+      <ComponentGroupRef Id="GeneratedComponents"/>
+      <ComponentGroupRef Id="ProductComponents"/>
+    </FeatureRef>
+
+		
+	</Product>
+
+  
+	<Fragment>
+    <DirectoryRef Id="TARFETDIR"/>
+	</Fragment>
+
+	<Fragment>
+		
+	</Fragment>
+</Wix>

@@ -1,0 +1,155 @@
+﻿<UserControl x:Class="RTFTDIF.Metro.Controls.RightDetailSection"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mam="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:local="clr-namespace:RTFTDIF.Metro.Controls"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Filter/Search : "></Label>
+            <TextBox Grid.Column="1" Grid.ColumnSpan="6" Foreground="{StaticResource AccentColorBrush}" TextChanged="TextBox_TextChanged" ></TextBox>
+            <Button Grid.Column="8" Style="{DynamicResource MetroCircleButtonStyle}" FontSize="25" FontFamily="{StaticResource FontAwesome}" Width="50" Height="50" Command="{Binding DeleteItemsCommand}" CommandParameter="{Binding CategoryId}">&#xf2ed;</Button>
+            <Button Grid.Column="9" Style="{DynamicResource MetroCircleButtonStyle}" FontSize="25" FontFamily="{StaticResource FontAwesome}" Width="50" Height="50" Command="{Binding RemoveItemsCommand}" CommandParameter="{Binding CategoryId}">&#xf068;</Button>
+            <Button Grid.Column="10" Style="{DynamicResource MetroCircleButtonStyle}" FontSize="25" FontFamily="{StaticResource FontAwesome}" Width="50" Height="50" Command="{Binding OpenInExplorerCommand}" >&#xf07c;</Button>
+            <Button Grid.Column="14" Style="{DynamicResource MetroCircleButtonStyle}" FontSize="25" FontFamily="{StaticResource FontAwesome}" Width="50" Height="50">&#xf013;</Button>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Content="Select" Grid.Row="0" Grid.Column="0" FontSize="20"/>
+            <Label Content="S.No" Grid.Row="0" Grid.Column="1" FontSize="20" />
+            <Label Content="Item" Grid.Row="0" Grid.Column="2" FontSize="20" />
+            <Label Content="Path" Grid.Row="0" Grid.Column="3" FontSize="20" />
+            <Label Content="Type" Grid.Row="0" Grid.Column="4" FontSize="20" />
+            <Label Content="Size" Grid.Row="0" Grid.Column="5" FontSize="20" />
+            <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" SelectionMode="Single"  ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" ScrollViewer.CanContentScroll="True">
+                <ListView.View>
+
+                    <GridView AllowsColumnReorder="true"
+              ColumnHeaderToolTip="Category Items" >
+
+                        <GridViewColumn  
+                      Header="Select" Width="50">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox Height="40" IsChecked="{Binding Selected, Mode=TwoWay}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn DisplayMemberBinding=
+                          "{Binding Path=SNo}" 
+                      Header="S.No" Width="100" />
+                        <GridViewColumn DisplayMemberBinding=
+                          "{Binding Path=ItemName}" 
+                      Header="File Name" Width="300"/>
+                        <GridViewColumn DisplayMemberBinding=
+                          "{Binding Path=ItemPath}" 
+                      Width="400">
+                            <GridViewColumnHeader>Item Path
+                            </GridViewColumnHeader>
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding=
+                          "{Binding Path=Format}" 
+                      Header="Format" Width="100"/>
+
+                        <GridViewColumn DisplayMemberBinding=
+                          "{Binding Path=Size}" 
+                      Header="Size" Width="100"/>
+
+                        <GridViewColumn DisplayMemberBinding=
+                          "{Binding Path=Type}" 
+                      Header="Type" Width="100"/>
+                    </GridView>
+
+                </ListView.View>
+            </ListView>
+            <!--<ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" IsDeferredScrollingEnabled="True" Padding="0,0,0,0" Margin="0,0,-5,0" Height="Auto">
+                <ItemsControl VirtualizingPanel.IsVirtualizing="True"  ItemsSource="{Binding Items}" Margin="0" Padding="0">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:ItemControl></local:ItemControl>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>-->
+            <Rectangle Grid.Row="1" Grid.Column="6" Fill="{StaticResource AccentColorBrush4}" Drop="Rectangle_Drop" AllowDrop="True"/>
+        </Grid>
+            <!--<ScrollViewer x:Name="GridScroller" Grid.Row="1" PreviewMouseWheel="GridScroller_PreviewMouseWheel">
+            <DataGrid VerticalScrollBarVisibility="Visible" RowHeight="50" EnableColumnVirtualization="True" EnableRowVirtualization="False" VirtualizingPanel.VirtualizationMode="Recycling"  VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.IsVirtualizingWhenGrouping="True"  ItemsSource="{Binding Items}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn 
+                    ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                    EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                    Header="IsSelected"
+                    Binding="{Binding Selected}"
+                />
+                    <DataGridTextColumn 
+                    ElementStyle="{DynamicResource MetroTextBlock}"
+                    EditingElementStyle="{DynamicResource MetroTextBlock}"
+                    Header = "S.No"
+                    Binding="{Binding SNo, Mode=OneWay}"></DataGridTextColumn>
+                    <DataGridTextColumn 
+                    ElementStyle="{DynamicResource MetroTextBlock}"
+                    EditingElementStyle="{DynamicResource MetroTextBlock}"
+                    Header = "File"
+                    Binding="{Binding ItemName, Mode=OneWay}" MaxWidth="200"></DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    ElementStyle="{DynamicResource MetroTextBlock}"
+                    EditingElementStyle="{DynamicResource MetroTextBlock}"
+                    Header = "Path"
+                    Binding="{Binding ItemPath, Mode=OneWay}" MaxWidth="400"></DataGridTextColumn>
+                    <DataGridTextColumn 
+                    ElementStyle="{DynamicResource MetroTextBlock}"
+                    EditingElementStyle="{DynamicResource MetroTextBlock}"
+                    Header = "Type"
+                    Binding="{Binding Format, Mode=OneWay}"></DataGridTextColumn>
+                    <DataGridTextColumn 
+                    ElementStyle="{DynamicResource MetroTextBlock}"
+                    EditingElementStyle="{DynamicResource MetroTextBlock}"
+                    Header = "Size"
+                    Binding="{Binding Size, Mode=OneWay}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>-->
+
+    </Grid>
+</UserControl>
